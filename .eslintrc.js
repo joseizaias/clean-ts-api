@@ -17,7 +17,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'eslint-plugin-import-helpers', 'prettier'],
   rules: {
-    camelcase: 'off',
+    camelCase: 'off',
     'prettier/prettier': 'error',
     'import/no-unresolved': 'error',
     '@typescript-eslint/naming-convention': [
