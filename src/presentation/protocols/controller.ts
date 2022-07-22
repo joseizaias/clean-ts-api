@@ -1,5 +1,6 @@
 import { HttpRequest, HttpResponse } from './http'
 
 export interface Controller {
-  handle: (httpRequest: HttpRequest) => HttpResponse
+  // eslint-disable-next-line @typescript-eslint/method-signature-style
+  handle (httpRequest: HttpRequest): Promise<HttpResponse>
 }
