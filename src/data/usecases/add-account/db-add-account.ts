@@ -1,6 +1,4 @@
-import { AddAccount, AddAccountModel } from '../../../domain/usecases/add-account'
-import { AccountModel } from '../../../domain/models/account'
-import { Encrypter } from '../../protocols/encrypter'
+import { Encrypter, AccountModel, AddAccount, AddAccountModel  } from './db-add-account-protocols'
 
 const fakeResult: AccountModel = {
   id: '',
