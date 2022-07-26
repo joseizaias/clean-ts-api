@@ -1,12 +1,5 @@
 import { Encrypter, AccountModel, AddAccount, AddAccountModel, AddAccountRepository } from './db-add-account-protocols'
 
-const fakeResult: AccountModel = {
-  id: '',
-  name: '',
-  email: '',
-  password: ''
-}
-
 export class DbAddAccount implements AddAccount {
   private readonly encrypter: Encrypter
   private readonly addAccountRepository
