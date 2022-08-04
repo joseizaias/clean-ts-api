@@ -15,8 +15,7 @@ export class AccountMongoRepository implements AddAccountRepository {
     const accountCollection = MongoHelper.getCollection('accounts')
     const result = await accountCollection.insertOne(accountData)
     const account = result.ops[0] // Soh nas versões anteriores a 4 do mongo, ou seja, soh no mongo v3 para trás.
-    const { _id, ...accountWithoutId } = account
-    return Object.assign({}, accountWithoutId, { id: _id })
+    return MongoHelper.map(account)
     // return new Promise(resolve => resolve(accountModelNullObject)) // útil para retornar a promise enquanto não finaliza o código.
   }
 }
