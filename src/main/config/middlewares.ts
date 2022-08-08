@@ -1,4 +1,5 @@
 // import { Express } from 'express'
+import { contentType } from '../middlewares/content-type'
 import { bodyParser } from '../middlewares/body-parser'
 import { cors } from '../middlewares/cors'
 
@@ -6,6 +7,7 @@ import { cors } from '../middlewares/cors'
 export default function (app) {
   app.use(bodyParser)
   app.use(cors)
+  app.use(contentType)
 }
 
 // A ideia é usar a forma abaixo, mas, está dando erro de sintax
