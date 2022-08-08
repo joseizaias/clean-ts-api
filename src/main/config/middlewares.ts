@@ -1,7 +1,5 @@
 // import { Express } from 'express'
-import { contentType } from '../middlewares/content-type'
-import { bodyParser } from '../middlewares/body-parser'
-import { cors } from '../middlewares/cors'
+import { cors, bodyParser, contentType } from '../middlewares'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default function (app) {
