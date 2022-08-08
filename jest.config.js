@@ -1,5 +1,5 @@
 module.exports = {
-  preset: '@shelf/jest-mongodb',
+  preset: 'ts-jest', ///  '@shelf/jest-mongodb',
   roots: ['<rootDir>/src'],
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: 'coverage',
@@ -12,3 +12,4 @@ module.exports = {
 }
 
 // testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
+// jest.config.js
