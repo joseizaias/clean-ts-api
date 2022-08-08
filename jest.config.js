@@ -7,5 +7,8 @@ module.exports = {
   transform: {
     '.+\\.ts$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest'
-  }
+  },
+  moduleFileExtensions: ['ts', 'js', 'json', 'node']
 }
+
+// testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
