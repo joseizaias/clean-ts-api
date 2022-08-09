@@ -1,11 +1,10 @@
 // import { Router } from 'express'
+import { makeSignUpController } from '../factories/signup'
+import { adaptRoute } from '../adapters/express-route-adapter'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default (router) => {
-  router.post('/signup', (req, res) => {
-    // console.log(req.body)
-    res.json({ ok: 'ok' })
-  })
+  router.post('/signup', adaptRoute(makeSignUpController()))
 }
 
 // Deveria estar assim, com os parâmtros e seus tipos, mas, quando coloco o tipo, recebo do jest o erro:
