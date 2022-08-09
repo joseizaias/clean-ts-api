@@ -3,13 +3,9 @@ module.exports = {
   roots: ['<rootDir>/src'],
   collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
   coverageDirectory: 'coverage',
-  // testEnvironment: 'node',  /// removi devido ao @shelf/jest-mongodb -> https://github.com/shelfio/jest-mongodb
+  // testEnvironment: 'node',
   transform: {
     '.+\\.ts$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest'
-  },
-  moduleFileExtensions: ['ts', 'js', 'json', 'node']
+  }
 }
-
-// testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.ts?$',
-// jest.config.js

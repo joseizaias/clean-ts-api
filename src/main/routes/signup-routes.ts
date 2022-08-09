@@ -3,6 +3,7 @@
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export default (router) => {
   router.post('/signup', (req, res) => {
+    // console.log(req.body)
     res.json({ ok: 'ok' })
   })
 }

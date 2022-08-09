@@ -3,6 +3,8 @@ import { AccountMongoRepository } from './account'
 
 describe('Account MongoDB Repository', () => {
   beforeAll(async () => {
+    // console.log(global.__MONGO_URI__)
+    // await MongoHelper.connect(`${process.env.MONGO_URI}`)
     await MongoHelper.connect(global.__MONGO_URI__)
   })
 
