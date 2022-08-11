@@ -5,6 +5,7 @@
   "main": "src/main/server.ts",
   "scripts": {
     "start": "sucrase-node src/main/server.ts",
+    "jest2": "jest --runInBand --detectOpenHandles",
     "jest": "jest --passWithNoTests  --noStackTrace --runInBand",
     "test": "jest --passWithNoTests  --silent --noStackTrace --runInBand",
     "test:verbose": "jest --passWithNoTests --runInBand",
