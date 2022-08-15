@@ -15,7 +15,7 @@ const makeEmailValidator = (): EmailValidator => {
 const makeFakeAccount = (): AccountModel => ({
   id: 'valid_id',
   name: 'valid_name',
-  email: 'valid_email@mail.com',
+  email: 'any_email@mail.com',
   password: 'valid_password'
 })
 
@@ -32,7 +32,7 @@ const makeAddAccount = (): AddAccount => {
 const makeFakeRequest = (): HttpRequest => ({
   body: {
     name: 'any_name',
-    email: 'invalid_email@mail.com',
+    email: 'any_email@mail.com',
     password: 'any_password',
     passwordConfirmation: 'any_password'
   }
