@@ -1,5 +1,5 @@
 import { InvalidParamError, MissingParamError } from '../../errors'
-import { badRequest, serverError, unauthorized } from '../../../presentation/helpers/http-helper'
+import { badRequest, serverError, unauthorized, ok } from '../../../presentation/helpers/http-helper'
 import { Controller, HttpRequest, HttpResponse, EmailValidator, Authentication } from './login-protocols'
 
 const fakeResponse: HttpResponse = {
@@ -39,7 +39,7 @@ export class LoginController implements Controller {
         return unauthorized()
       }
 
-      return fakeResponse
+      return ok({ accessToken })
     } catch (error) {
       return serverError(error)
     }
