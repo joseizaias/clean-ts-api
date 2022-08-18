@@ -1,5 +1,5 @@
 import { LoginController } from './login'
-import { badRequest, serverError } from '../../helpers/http-helper'
+import { badRequest, serverError, unauthorized } from '../../helpers/http-helper'
 import { InvalidParamError, MissingParamError } from '../../../presentation/errors'
 import { EmailValidator, HttpRequest } from '../signup/signup-protocols'
 import { Authentication } from '../../../domain/usecases/authentication'
@@ -110,5 +110,16 @@ describe('Login Controller', () => {
 
     await sut.handle(makeFakeRequest())
     expect(authSpy).toHaveBeenCalledWith('any_email@mail.com', 'any_password')
+  })
+
+  test('Should return 401 if invalid credentials are provided', async () => {
+    const { sut, authenticationStub } = makeSut()
+    // Para mocar e alterar o comportamento de um método ou função, usa-se o
+    //      jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(valor ser retornado pela função que deve ser de tipo compartivel com o retorno da função)
+    // Para mocar e modificar o tipo de retorno, deve-se usar o mockImplementationOnce() - veja abaixo:
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve('')))
+
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(unauthorized())
   })
 })
