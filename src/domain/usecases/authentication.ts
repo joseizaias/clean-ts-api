@@ -1,6 +1,10 @@
+export interface AuthenticationModel {
+  email: string
+  password: string
+}
 export interface Authentication {
   // eslint-disable-next-line @typescript-eslint/method-signature-style
-  auth (email: string, password: string): Promise<string>
+  auth (authentication: AuthenticationModel): Promise<string>
 }
 
 // usando o padrão do eslint, teríamos que configurar dessa forma a interface Authentication:
