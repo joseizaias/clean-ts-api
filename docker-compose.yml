@@ -8,20 +8,19 @@ services:
     volumes:
       - ./data:/data/db
     ports:
-      - "27017:27017"
+      - 27017:27017
 
   apitdd:
     container_name: api-tdd-container
     build: .
-    restart: always
+    # restart: always
     # neste caso, como temos o build acima, ele usa o Dockerfile e o
     # image abaixo é usado para nomear a imagem
-    image: clean-node-api-container
+    image: clean-node-api
     command: npm start
     volumes:
-      -./dist:/usr/src/clean-node-api
+      - ./dist:/usr/src/clean-node-api/dist
     ports:
-      - "5050:5050"
+      - 5050:5050
     links:
       - mongodb
-
