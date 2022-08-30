@@ -12,15 +12,13 @@ services:
 
   apitdd:
     container_name: api-tdd-container
-    # build: .
+    build: .
     # restart: always
     # neste caso, como temos o build acima, ele usa o Dockerfile e o
     # image abaixo é usado para nomear a imagem
-    image: node:16
-    working_dir: /usr/src/clean-node-api
-    # restart: always
+    image: clean-node-api
     # command: npm start
-    command: bash -c "npm install --only=prod && npm run debug"
+    command: npm run debug
     volumes:
       - ./dist/:/usr/src/clean-node-api/dist/
       - ./package.json:/usr/src/clean-node-api/package.json

@@ -6,11 +6,9 @@
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc",
-    "debug": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
-    "debugolds": "node --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
+    "debug": "node --inspect=0.0.0.0:9222 --nolazy dist/main/server.js",
     "dev": "sucrase-node src/main/server.ts",
     "up": "npm run build && docker-compose up -d",
-    "up2": "npm run build && docker-compose up",
     "down": "docker-compose down",
     "jest2": "jest --runInBand --detectOpenHandles",
     "jest": "jest --passWithNoTests  --noStackTrace --runInBand",
