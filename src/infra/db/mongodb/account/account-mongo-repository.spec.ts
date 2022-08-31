@@ -79,7 +79,6 @@ describe('Account MongoDB Repository', () => {
 
     const account = await accountCollection.findOne({ _id: fakeAccount._id })
 
-    expect(account).toBeTruthy()
     expect(account.accessToken).toBe('any_token')
   })
 })
