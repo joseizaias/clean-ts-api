@@ -128,4 +128,15 @@ describe('SignUp controller', () => {
       password: 'any_password'
     })
   })
+
+  test('Should return 500 if Authentication throws', async () => {
+    const { sut, authenticationStub } = makeSut()
+    // Para mocar e alterar o comportamento de um método ou função, usa-se o
+    //      jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(valor ser retornado pela função que deve ser de tipo compartivel com o retorno da função)
+    // Para mocar e modificar o tipo de retorno, deve-se usar o mockImplementationOnce() - veja abaixo:
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+
+    const httpResponse = await sut.handle(makeFakeRequest())
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
 })
