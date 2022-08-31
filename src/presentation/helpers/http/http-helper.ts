@@ -6,6 +6,11 @@ export const badRequest = (error: Error): HttpResponse => ({
   body: error // new MissingParamError('email')
 })
 
+export const forbidden = (error: Error): HttpResponse => ({
+  statusCode: 403,
+  body: error // new MissingParamError('email')
+})
+
 export const unauthorized = (): HttpResponse => ({
   statusCode: 401,
   body: new UnauthorizedError()
