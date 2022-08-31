@@ -4,7 +4,7 @@ import { app } from '../config/app'
 describe('Content-Type Middleware', () => {
   test('Should returns default content type as json', async () => {
     app.get('/test_content_type_json', (req, res) => {
-      res.type('json') // coloquei como um teste porque parou de funcionar.
+      // res.type('json') // coloquei como um teste porque parou de funcionar.
       res.send('')
     })
 
