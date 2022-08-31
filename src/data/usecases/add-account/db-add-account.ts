@@ -1,5 +1,12 @@
 import { Hasher, AccountModel, AddAccount, AddAccountModel, AddAccountRepository, LoadAccountByEmailRepository } from './db-add-account-protocols'
 
+const makeFakeAccountModelNull = (): AccountModel => ({
+  id: '',
+  name: '',
+  email: '',
+  password: ''
+})
+
 export class DbAddAccount implements AddAccount {
   constructor (
     private readonly hasher: Hasher,
@@ -8,10 +15,19 @@ export class DbAddAccount implements AddAccount {
   ) {}
 
   async add (accountData: AddAccountModel): Promise<AccountModel> {
-    await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
-    const hashedPassword = await this.hasher.hash(accountData.password)
-    const account = await this.addAccountRepository.add(Object.assign({}, accountData, { password: hashedPassword }))
-    return account
+    const account = await this.loadAccountByEmailRepository.loadByEmail(accountData.email)
+
+    if (!account) {
+      const hashedPassword = await this.hasher.hash(accountData.password)
+      const newAccount = await this.addAccountRepository.add(Object.assign({}, accountData, { password: hashedPassword }))
+      console.log('newAccount')
+      console.log(newAccount)
+      return newAccount
+    }
+
+    console.log(makeFakeAccountModelNull())
+    return makeFakeAccountModelNull()
+
     // return new Promise(resolve => resolve(fakeResult))
   }
 }
