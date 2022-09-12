@@ -27,8 +27,8 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/signup')
         .send({
-          name: 'jose izaias1',
-          email: 'joseizaias1@gmail.com',
+          name: 'jose izaias',
+          email: 'joseizaias@gmail.com',
           password: '1234',
           passwordConfirmation: '1234'
         })
@@ -41,14 +41,14 @@ describe('Login Routes', () => {
       const salt = 12
       const password = await hash('1234', salt)
       await accountCollection.insertOne({
-        name: 'jose izaias1',
-        email: 'joseizaias1@gmail.com',
+        name: 'jose izaias',
+        email: 'joseizaias@gmail.com',
         password
       })
       await request(app)
         .post('/api/login')
         .send({
-          email: 'joseizaias1@gmail.com',
+          email: 'joseizaias@gmail.com',
           password: '1234'
         })
         .expect(200)
@@ -58,7 +58,7 @@ describe('Login Routes', () => {
       await request(app)
         .post('/api/login')
         .send({
-          email: 'joseizaias1@gmail.com',
+          email: 'joseizaias@gmail.com',
           password: '1234'
         })
         .expect(401)
