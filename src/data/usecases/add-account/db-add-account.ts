@@ -1,12 +1,5 @@
 import { Hasher, AccountModel, AddAccount, AddAccountModel, AddAccountRepository, LoadAccountByEmailRepository } from './db-add-account-protocols'
 
-const makeFakeAccountModelNull = (): AccountModel => ({
-  id: '',
-  name: '',
-  email: '',
-  password: ''
-})
-
 export class DbAddAccount implements AddAccount {
   constructor (
     private readonly hasher: Hasher,
@@ -25,8 +18,9 @@ export class DbAddAccount implements AddAccount {
       return newAccount
     }
 
-    console.log(makeFakeAccountModelNull())
-    return makeFakeAccountModelNull()
+    // console.log(makeFakeAccountModelNull())
+    return account
+    // return makeFakeAccountModelNull()
 
     // return new Promise(resolve => resolve(fakeResult))
   }
