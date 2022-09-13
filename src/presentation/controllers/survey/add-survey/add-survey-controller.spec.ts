@@ -1,4 +1,4 @@
-import { HttpRequest, Validation } from './add-survey-controller-protocols'
+import { HttpRequest, AddSurvey, AddSurveyModel, Validation } from './add-survey-controller-protocols'
 import { AddSurveyController } from './add-survey-controller'
 import { badRequest } from '../../../helpers/http/http-helper'
 
@@ -12,11 +12,6 @@ const makeFakeRequest = (): HttpRequest => ({
   }
 })
 
-interface SutTypes {
-  sut: AddSurveyController
-  validationStub: Validation
-}
-
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate (input: any): Error {
@@ -27,12 +22,30 @@ const makeValidation = (): Validation => {
   return new ValidationStub()
 }
 
+const makeAddSurvey = (): AddSurvey => {
+  class AddSurveyStub implements AddSurvey {
+    async add (data: AddSurveyModel): Promise<void> {
+      return new Promise(resolve => resolve())
+    }
+  }
+
+  return new AddSurveyStub()
+}
+
+interface SutTypes {
+  sut: AddSurveyController
+  validationStub: Validation
+  addSurveyStub: AddSurvey
+}
+
 const makeSut = (): SutTypes => {
   const validationStub = makeValidation()
-  const sut = new AddSurveyController(validationStub)
+  const addSurveyStub = makeAddSurvey()
+  const sut = new AddSurveyController(validationStub, addSurveyStub)
   return {
     sut,
-    validationStub
+    validationStub,
+    addSurveyStub
   }
 }
 
@@ -54,5 +67,15 @@ describe('AddSurvey Controller', () => {
     jest.spyOn(validationStub, 'validate').mockReturnValueOnce(new Error())
     const httpResponse = await sut.handle(makeFakeRequest())
     expect(httpResponse).toEqual(badRequest(new Error()))
+  })
+
+  test('Should call AddSurvey with correct values', async () => {
+    // Type 'null' is not assignable to type 'T'
+    // You have to declare the return type as null or turn off strictNullChecks in your tsconfig
+    const { sut, addSurveyStub } = makeSut()
+    const addSurveySpy = jest.spyOn(addSurveyStub, 'add')
+    const httpRequest = makeFakeRequest()
+    await sut.handle(httpRequest)
+    expect(addSurveySpy).toHaveBeenCalledWith(httpRequest.body)
   })
 })
