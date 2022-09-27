@@ -57,16 +57,16 @@ describe('JWT Adapter', () => {
       expect(accessToken).toBe('any_value')
     })
 
-    // test('Should throws if sign throws', async () => {
-    //   const sut = makeSut()
-    //   // jest.spyOn(jwt, 'sign').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
-    //   // a linha acima não funciona porque tem vários tipos de retorno e isso causa confusão para TypeScript. SEndo assim,
-    //   // temos que usar o mockImplementationOnce(), conforme abaixo
-    //   jest.spyOn(jwt, 'sign').mockImplementationOnce(() => {
-    //     throw new Error()
-    //   })
-    //   const promise = sut.encrypt('any_id')
-    //   await expect(promise).rejects.toThrow()
-    // })
+    test('Should throw if verify throws', async () => {
+      const sut = makeSut()
+      // jest.spyOn(jwt, 'sign').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      // a linha acima não funciona porque tem vários tipos de retorno e isso causa confusão para TypeScript. SEndo assim,
+      // temos que usar o mockImplementationOnce(), conforme abaixo
+      jest.spyOn(jwt, 'verify').mockImplementationOnce(() => {
+        throw new Error()
+      })
+      const promise = sut.decrypt('any_token')
+      await expect(promise).rejects.toThrow()
+    })
   })
 })
