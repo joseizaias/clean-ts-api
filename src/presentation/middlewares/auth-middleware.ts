@@ -26,6 +26,7 @@ export class AuthMiddleware implements Middleware {
       // const error = forbidden(new AccessDeniedError())
       // return new Promise(resolve => resolve(error))
 
+      // return new Promise(resolve => resolve(null as unknown as HttpResponse))
       // return new Promise(resolve => resolve(null as any))
     } catch (error) {
       return serverError(error)

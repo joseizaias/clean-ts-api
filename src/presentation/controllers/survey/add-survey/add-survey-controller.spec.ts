@@ -15,7 +15,8 @@ const makeFakeRequest = (): HttpRequest => ({
 const makeValidation = (): Validation => {
   class ValidationStub implements Validation {
     validate (input: any): Error {
-      return null as any
+      return null as unknown as Error
+      // return null as any
     }
   }
 
