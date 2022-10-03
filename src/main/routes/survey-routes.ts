@@ -1,9 +1,12 @@
 import { Router } from 'express'
 import { makeAddSurveyController } from '../factories/controllers/survey/add-survey/add-survey-controller-factory'
 import { adaptRoute } from '../adapters/express-route-adapter'
+import { makeAuthMiddleware } from '../../main/factories/middlewares/auth-middleware-factory'
+import { adaptMiddleware } from '../../main/adapters/express-middleware-adapter'
 
 export default (router: Router): void => {
-  router.post('/surveys', adaptRoute(makeAddSurveyController()))
+  const adminAuth = adaptMiddleware(makeAuthMiddleware('admin'))
+  router.post('/surveys', adminAuth, adaptRoute(makeAddSurveyController()))
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
