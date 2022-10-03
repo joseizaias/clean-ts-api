@@ -1,6 +1,8 @@
+import MockDate from 'mockdate'
+
 import { HttpRequest, AddSurvey, AddSurveyModel, Validation } from './add-survey-controller-protocols'
 import { AddSurveyController } from './add-survey-controller'
-import { badRequest, noContent, serverError } from '../../../helpers/http/http-helper'
+import { badRequest, noContent, serverError } from '@/presentation/helpers/http/http-helper'
 
 const makeFakeRequest = (): HttpRequest => ({
   body: {
@@ -8,7 +10,8 @@ const makeFakeRequest = (): HttpRequest => ({
     answers: [{
       image: 'any_image',
       answer: 'any_answer'
-    }]
+    }],
+    date: new Date()
   }
 })
 
@@ -51,6 +54,14 @@ const makeSut = (): SutTypes => {
 }
 
 describe('AddSurvey Controller', () => {
+  beforeAll(() => {
+    MockDate.set(new Date())
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
+
   test('Should call Validation with correct values', async () => {
     // Type 'null' is not assignable to type 'T'
     // You have to declare the return type as null or turn off strictNullChecks in your tsconfig

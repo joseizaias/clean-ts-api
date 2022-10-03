@@ -1,4 +1,4 @@
-import { AddSurveyModel } from '../../../../domain/usecases/add-survey'
+import { AddSurveyModel } from '@/domain/usecases/add-survey'
 
 export interface AddSurveyRepository {
   // eslint-disable-next-line @typescript-eslint/method-signature-style
