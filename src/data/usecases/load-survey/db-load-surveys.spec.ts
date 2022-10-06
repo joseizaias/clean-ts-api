@@ -47,7 +47,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('DbLoadSuverys', () => {
+describe('DbLoadSurveys', () => {
   beforeAll(() => {
     MockDate.set(new Date())
   })
@@ -60,7 +60,7 @@ describe('DbLoadSuverys', () => {
     const { sut, loadSurveysRepositoryStub } = makeSut()
     const loadAllSpy = jest.spyOn(loadSurveysRepositoryStub, 'loadAll')
     await sut.load()
-    expect(loadAllSpy).toHaveBeenCalled()
+    expect(loadAllSpy).toHaveBeenCalledWith()
   })
 
   test('Should return a list of Surveys on success', async () => {
