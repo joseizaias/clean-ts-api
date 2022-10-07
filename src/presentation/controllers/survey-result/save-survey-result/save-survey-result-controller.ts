@@ -11,6 +11,7 @@ export class SaveSurveyResultController implements Controller {
       return forbidden(new InvalidParamError('surveyId'))
     }
 
-    return new Promise(resolve => resolve(null as unknown as HttpResponse))
+    return null as unknown as HttpResponse
+    // return new Promise(resolve => resolve(null as unknown as HttpResponse))
   }
 }
