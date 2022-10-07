@@ -16,10 +16,7 @@ export class DbAddAccount implements AddAccount {
       return newAccount
     }
 
-    // console.log(makeFakeAccountModelNull())
     return account
-    // return makeFakeAccountModelNull()
-
     // return new Promise(resolve => resolve(fakeResult))
   }
 }
