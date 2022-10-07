@@ -1,3 +1,4 @@
+import { InvalidParamError } from '@/presentation/errors'
 import { SaveSurveyResultController } from './save-survey-result-controller'
 import { HttpRequest, LoadSurveyById, SurveyModel } from './save-survey-result-controller-protocols'
 
@@ -47,6 +48,12 @@ describe('SaveSurveyResult Controller', () => {
 
     expect(loadByIdSpy).toHaveBeenCalledWith('any_survey_id')
   })
-})
 
-// 'Should return 403 if LoadSurveyById returns null
+  test('Should return 403 if LoadSurveyById returns null', async () => {
+    const { sut, loadSurveyByIdStub } = makeSut()
+    jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(new Promise(resolve => resolve(null as unknown as SurveyModel)))
+    const httpResponse = await sut.handle(makeFakeRequest())
+
+    expect(httpResponse).toEqual(new InvalidParamError('surveyId'))
+  })
+})
