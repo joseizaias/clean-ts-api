@@ -1,4 +1,4 @@
-import { Hasher, AddAccountModel, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from './db-add-account-protocols'
+import { Hasher, AddAccountParams, AccountModel, AddAccountRepository, LoadAccountByEmailRepository } from './db-add-account-protocols'
 import { DbAddAccount } from './db-add-account'
 
 const makeFakeAccount = (): AccountModel => ({
@@ -9,7 +9,7 @@ const makeFakeAccount = (): AccountModel => ({
   password: 'hashed_password'
 })
 
-const makeFakeAccountData = (): AddAccountModel => ({
+const makeFakeAccountData = (): AddAccountParams => ({
   name: 'valid_name',
   email: 'valid_email@mail.com',
   password: 'valid_password'
@@ -38,7 +38,7 @@ const makeLoadAccountByEmailRepository = (): LoadAccountByEmailRepository => {
 
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepository {
-    async add (accountData: AddAccountModel): Promise<AccountModel> {
+    async add (accountData: AddAccountParams): Promise<AccountModel> {
       return new Promise(resolve => resolve(makeFakeAccount()))
     }
   }
@@ -111,7 +111,7 @@ describe('DbAddAccount Usecase', () => {
   //   // jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(new Promise(resolve => null as unknown as AccountModel))
   //   // jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockReturnValueOnce(new Promise(resolve => null as any))
 
-  //   const loadByEmailSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail') as unknown as jest.Mock<ReturnType<(key: boolean) => boolean | null | AddAccountModel>, Parameters<() => boolean>>
+  //   const loadByEmailSpy = jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail') as unknown as jest.Mock<ReturnType<(key: boolean) => boolean | null | AddAccountParams>, Parameters<() => boolean>>
   //   loadByEmailSpy.mockReturnValueOnce(null) // (new Promise(resolve => (false)))
 
   //   const account = await sut.add(makeFakeAccountData())
