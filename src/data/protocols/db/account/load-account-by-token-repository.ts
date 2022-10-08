@@ -8,7 +8,7 @@ export interface LoadAccountByTokenRepository {
  * Uma forma diferente de escrever a interface acima:
 
 export interface LoadAccountByEmailRepository {
-  loadByEmail (email: string): Promise<AccountModel>
+  loadByToken (token: string, role?: string): Promise<AccountModel>
 }
 
  */

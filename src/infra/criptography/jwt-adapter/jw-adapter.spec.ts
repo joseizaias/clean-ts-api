@@ -1,6 +1,8 @@
 import jwt from 'jsonwebtoken'
 import { JwtAdapter } from './jwt-adapter'
 
+// import { throwError } from '@/domain/tests'
+
 jest.mock('jsonwebtoken', () => ({
   async sign (): Promise<string> {
     return new Promise(resolve => resolve('any_token'))
@@ -32,7 +34,7 @@ describe('JWT Adapter', () => {
 
     test('Should throws if sign throws', async () => {
       const sut = makeSut()
-      // jest.spyOn(jwt, 'sign').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      // jest.spyOn(jwt, 'sign').mockImplementationOnce(throwError)
       // a linha acima não funciona porque tem vários tipos de retorno e isso causa confusão para TypeScript. SEndo assim,
       // temos que usar o mockImplementationOnce(), conforme abaixo
       jest.spyOn(jwt, 'sign').mockImplementationOnce(() => {
@@ -59,7 +61,7 @@ describe('JWT Adapter', () => {
 
     test('Should throw if verify throws', async () => {
       const sut = makeSut()
-      // jest.spyOn(jwt, 'sign').mockReturnValueOnce(new Promise((resolve, reject) => reject(new Error())))
+      // jest.spyOn(jwt, 'sign').mockImplementationOnce(throwError)
       // a linha acima não funciona porque tem vários tipos de retorno e isso causa confusão para TypeScript. SEndo assim,
       // temos que usar o mockImplementationOnce(), conforme abaixo
       jest.spyOn(jwt, 'verify').mockImplementationOnce(() => {
