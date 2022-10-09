@@ -24,7 +24,7 @@ export class AddSurveyController implements Controller {
 
       return noContent()
       // return null as any
-      // return new Promise(resolve => resolve(null as any))  // era usado antes do await ser implementado porque é assincrono e precisa de um retorno Promise
+      // return Promise.resolve(null as any)  // era usado antes do await ser implementado porque é assincrono e precisa de um retorno Promise
     } catch (error) {
       return serverError(error)
     }

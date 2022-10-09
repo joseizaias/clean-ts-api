@@ -47,7 +47,7 @@ describe('Login Controller', () => {
     // Para mocar e alterar o comportamento de um método ou função, usa-se o
     //      jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(valor ser retornado pela função que deve ser de tipo compartivel com o retorno da função)
     // Para mocar e modificar o tipo de retorno, deve-se usar o mockImplementationOnce() - veja abaixo:
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(new Promise(resolve => resolve('')))
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(''))
 
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(unauthorized())

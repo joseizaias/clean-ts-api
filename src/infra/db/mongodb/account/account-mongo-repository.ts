@@ -19,7 +19,7 @@ export class AccountMongoRepository implements AddAccountRepository, LoadAccount
     const result = await accountCollection.insertOne(accountData)
     const account = result.ops[0] // Soh nas versões anteriores a 4 do mongo, ou seja, soh no mongo v3 para trás.
     return MongoHelper.map(account)
-    // return new Promise(resolve => resolve(accountModelNullObject)) // útil para retornar a promise enquanto não finaliza o código.
+    // return Promise.resolve(accountModelNullObject) // útil para retornar a promise enquanto não finaliza o código.
   }
 
   async loadByEmail (email: string): Promise<AccountModel> {

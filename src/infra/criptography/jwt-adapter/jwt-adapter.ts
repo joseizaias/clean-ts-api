@@ -9,7 +9,7 @@ export class JwtAdapter implements Encrypter, Decrypter {
   async encrypt (value: string): Promise<string> {
     const accessToken = await jwt.sign({ id: value }, this.secret)
     return accessToken
-    // return new Promise(resolve => resolve(''))
+    // return Promise.resolve('')
   }
 
   async decrypt (token: string): Promise<string> {
@@ -18,6 +18,6 @@ export class JwtAdapter implements Encrypter, Decrypter {
     return value
     // return null as unknown as string
     // return null as any
-    // return new Promise(resolve => resolve(null as any))
+    // return Promise.resolve(null as any)
   }
 }

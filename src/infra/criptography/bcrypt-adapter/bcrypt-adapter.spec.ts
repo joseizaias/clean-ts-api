@@ -5,10 +5,10 @@ import { throwError } from '@/domain/test'
 
 jest.mock('bcrypt', () => ({
   async hash (): Promise<string> {
-    return new Promise(resolve => resolve('hash'))
+    return Promise.resolve('hash')
   },
   async compare (): Promise<boolean> {
-    return new Promise(resolve => resolve(true))
+    return Promise.resolve(true)
   }
 }))
 
@@ -41,8 +41,6 @@ describe('Bcrypt Adapter', () => {
       const sut = makeSut()
       const hashSpy = jest.spyOn(bcrypt, 'hash') as unknown as jest.Mock<ReturnType<(key: Error) => Promise<Error>>, Parameters<(key: Error) => Promise<Error>>>
       hashSpy.mockImplementationOnce(throwError)
-      // jest.spyOn(bcrypt, 'hash').mockReturnValueOnce(new Promise((_resolve, reject) => reject(new Error())))
-      // const hashSpy = jest.spyOn(bcrypt, 'hash')
       const promise = sut.hash('any_value')
 
       await expect(promise).rejects.toThrow()
@@ -67,9 +65,9 @@ describe('Bcrypt Adapter', () => {
 
     test('Should return a false when compare fails', async () => {
       const sut = makeSut()
-      const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.Mock<ReturnType<(key: string) => Promise<boolean>>> // .mockReturnValue(new Promise(resolve => resolve(false)))
-      compareSpy.mockReturnValue(new Promise(resolve => resolve(false))) /// mockReturnValueOnce(false)
-      // compareSpy.mockReturnValueOnce(false) // .mockReturnValue(new Promise(resolve => resolve(false)))
+      const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.Mock<ReturnType<(key: string) => Promise<boolean>>> // .mockReturnValue(Promise.resolve(false))
+      compareSpy.mockReturnValue(Promise.resolve(false)) /// mockReturnValueOnce(false)
+      // compareSpy.mockReturnValueOnce(false) // .mockReturnValue(Promise.resolve(false))
       const isValid = await sut.compare('any_value', 'any_hash')
 
       expect(isValid).toBeFalsy()
@@ -79,8 +77,6 @@ describe('Bcrypt Adapter', () => {
       const sut = makeSut()
       const compareSpy = jest.spyOn(bcrypt, 'compare') as unknown as jest.Mock<ReturnType<(key: Error) => Promise<Error>>, Parameters<(key: Error) => Promise<Error>>>
       compareSpy.mockImplementationOnce(throwError)
-      // jest.spyOn(bcrypt, 'compare').mockReturnValueOnce(new Promise((_resolve, reject) => reject(new Error())))
-      // const compareSpy = jest.spyOn(bcrypt, 'compare')
       const promise = sut.compare('any_value', 'any_hash')
 
       await expect(promise).rejects.toThrow()

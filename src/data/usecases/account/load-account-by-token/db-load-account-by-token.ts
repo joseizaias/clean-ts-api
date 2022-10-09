@@ -19,6 +19,6 @@ export class DbLoadAccountByToken implements LoadAccountByToken {
 
     return null as unknown as AccountModel
     // return null as any
-    // return new Promise(resolve => resolve(null as any))
+    // return Promise.resolve(null as any)
   }
 }

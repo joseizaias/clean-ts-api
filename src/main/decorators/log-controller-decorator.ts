@@ -14,6 +14,6 @@ export class LogControllerDecorator implements Controller {
       await this.logErrorRepository.logError(httpResponse.body.stack)
     }
 
-    return httpResponse /// null // new Promise(resolve => resolve(null))
+    return httpResponse /// null // Promise.resolve(null)
   }
 }

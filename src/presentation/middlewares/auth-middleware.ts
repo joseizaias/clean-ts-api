@@ -24,10 +24,10 @@ export class AuthMiddleware implements Middleware {
 
       // antes era assim, no primeiro teste, porque precisava da promise. Depois foi removido quando adicionou o "await" acima!
       // const error = forbidden(new AccessDeniedError())
-      // return new Promise(resolve => resolve(error))
+      // return Promise.resolve(error)
 
-      // return new Promise(resolve => resolve(null as unknown as HttpResponse))
-      // return new Promise(resolve => resolve(null as any))
+      // return Promise.resolve(null as unknown as HttpResponse)
+      // return Promise.resolve(null as any)
     } catch (error) {
       return serverError(error)
     }

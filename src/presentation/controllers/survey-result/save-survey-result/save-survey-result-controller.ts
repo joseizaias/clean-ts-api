@@ -33,7 +33,7 @@ export class SaveSurveyResultController implements Controller {
       })
       return ok(surveyResult)
       // return null as unknown as HttpResponse
-      // return new Promise(resolve => resolve(null as unknown as HttpResponse))
+      // return Promise.resolve(null as unknown as HttpResponse)
     } catch (error) {
       return serverError(error)
     }

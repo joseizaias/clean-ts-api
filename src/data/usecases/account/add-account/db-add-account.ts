@@ -17,6 +17,6 @@ export class DbAddAccount implements AddAccount {
     }
 
     return returnedValue
-    // return new Promise(resolve => resolve(fakeResult))
+    // return Promise.resolve(fakeResult)
   }
 }

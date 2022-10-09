@@ -82,28 +82,12 @@ describe('DbAuthentication Usecase', () => {
 
   test('Should return null if HashComparer returns null', async () => {
     const { sut, hashComparerStub } = makeSut()
-    // jest.spyOn(loadAccountByEmailRepositoryStub, 'loadByEmail').mockImplementation(null) // este eh o correto, mas,não está funcionando.
-    // jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(new Promise(resolve => (false)))
-
-    // const compareSpy = jest.spyOn(hashComparerStub, 'compare') as unknown as jest.Mock<ReturnType<(key: boolean) => Promise<boolean>>, Parameters<(key: Error) => Promise<Error>>>
-    // peguei a linha acima e ajustei para os devidos parâmetros do método atual.
     const compareSpy = jest.spyOn(hashComparerStub, 'compare') as unknown as jest.Mock<ReturnType<(key: boolean) => boolean | null>, Parameters<() => boolean>>
-    compareSpy.mockReturnValueOnce(null) // (new Promise(resolve => (false)))
+    compareSpy.mockReturnValueOnce(null)
     const accessToken = await sut.auth(mockAuthentication())
 
     expect(accessToken).toBeFalsy()
   })
-
-  // test('Should return null if HashComparer returns false', async () => {
-  //   const { sut, hashComparerStub } = makeSut()
-  //   // jest.spyOn(hashComparerStub, 'compare').mockImplementation(false) // este eh o correto, mas,não está funcionando.
-  //   jest.spyOn(hashComparerStub, 'compare').mockReturnValueOnce(new Promise(resolve => (false)))
-  //   const accessToken = await sut.auth(mockAuthentication())
-
-  //   expect(accessToken).toBeUndefined()
-  //   // expect(accessToken).toBeNull()
-  //   // expect(accessToken).toBeFalsy() // both did not work properly.
-  // })
 
   test('Should call Encrypter with correct id', async () => {
     const { sut, encrypterStub } = makeSut()
@@ -143,22 +127,3 @@ describe('DbAuthentication Usecase', () => {
     await expect(promise).rejects.toThrow()
   })
 })
-
-/****
- *
- *
-const hashSpy = jest.spyOn(bcrypt, "hash") as unknown as jest.Mock<
-      ReturnType<(key: string) => Promise<string>>,
-      Parameters<(key: string) => Promise<string>>
-    >;
-hashSpy.mockResolvedValueOnce("hashedPassword");
-
-////
-
-const hashSpy = jest.spyOn(bcrypt, 'hash') as unknown as jest.Mock<
-ReturnType<(key: Error) => Promise<Error>>,
-Parameters<(key: Error) => Promise<Error>>
->
-hashSpy.mockImplementationOnce(throwError)
- *
- */
