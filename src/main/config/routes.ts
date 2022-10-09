@@ -1,15 +1,14 @@
 // import { Express, Router } from 'express'
-import { Router } from 'express'
+import { Express, Router } from 'express'
 // import fg from 'fast-glob'
 import { readdirSync } from 'fs'
+import path from 'path'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default function (app) {
+export default (app: Express): void => {
   const router = Router()
   app.use('/api', router)
-  // fg.sync('**/src/main/routes/**routes.ts').map(async file => (await import(`../../../${file}`)).default(router))
-  // readdirSync(`${__dirname}`).map(async file => console.log(file))
-  readdirSync(`${__dirname}/../routes`).map(async file => {
+  readdirSync(path.join(`${__dirname}`, '/../routes')).map(async file => {
     if (!file.includes('.test.') && !file.endsWith('.map')) {
       (await import(`../routes/${file}`)).default(router)
     }
