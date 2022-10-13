@@ -5,6 +5,7 @@ import { HttpRequest, Authentication } from './login-controller-protocols'
 import { Validation } from '@/presentation/controllers/login/signup/signup-controller-protocols'
 import { mockAuthentication, mockValidation } from '@/presentation/test'
 import { throwError } from '@/domain/test'
+import { AuthenticationModel } from '@/domain/models/authentication'
 
 const mockRequest = (): HttpRequest => ({
   body: {
@@ -44,10 +45,7 @@ describe('Login Controller', () => {
 
   test('Should return 401 if invalid credentials are provided', async () => {
     const { sut, authenticationStub } = makeSut()
-    // Para mocar e alterar o comportamento de um método ou função, usa-se o
-    //      jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(valor ser retornado pela função que deve ser de tipo compartivel com o retorno da função)
-    // Para mocar e modificar o tipo de retorno, deve-se usar o mockImplementationOnce() - veja abaixo:
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(''))
+    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null as unknown as AuthenticationModel))
 
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(unauthorized())
@@ -64,10 +62,10 @@ describe('Login Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 20 if valid credentials are provided', async () => {
+  test('Should return 200 if valid credentials are provided', async () => {
     const { sut } = makeSut()
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
+    expect(httpResponse).toEqual(ok({ name: 'any_name', accessToken: 'any_token' }))
   })
 
   test('Should call Validation with correct value', async () => {
