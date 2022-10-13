@@ -54,6 +54,13 @@ describe('DbLoadSurveyResult UseCase', () => {
     expect(loadByIdSpy).toHaveBeenCalledWith('any_surveyId')
   })
 
+  test('Should return surveyResultModel with all answers with count 0 if LoadSurveyResultRepository returns null', async () => {
+    const { sut, loadSurveyResultRepositoryStub } = makeSut()
+    jest.spyOn(loadSurveyResultRepositoryStub, 'loadBySurveyId').mockReturnValueOnce(Promise.resolve(null as unknown as SurveyResultModel))
+    const surveyResult = await sut.load('any_surveyId')
+    expect(surveyResult).toEqual(mockSurveyResultModel())
+  })
+
   test('Should return surveyResultModel on sucess', async () => {
     const { sut } = makeSut()
     const surveyResult = await sut.load('any_surveyId')
