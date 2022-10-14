@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 import { Hasher } from '@/data/protocols/criptography/hasher'
 import { Decrypter } from '@/data/protocols/criptography/decrypter'
 import { Encrypter } from '@/data/protocols/criptography/encrypter'
@@ -7,7 +9,6 @@ export const mockHasher = (): Hasher => {
   class HasherStub implements Hasher {
     async hash (value: string): Promise<string> {
       return Promise.resolve('hashed_password')
-      // return Promise.resolve('hashed_password')
     }
   }
   return new HasherStub()
@@ -41,4 +42,43 @@ export const mockHashComparer = (): HashComparer => {
   }
 
   return new HashComparerStub()
+}
+
+export class HasherSpy implements Hasher {
+  digest = faker.datatype.uuid()
+  plaintext: string
+
+  async hash (plaintext: string): Promise<string> {
+    this.plaintext = plaintext
+    return this.digest
+  }
+}
+
+export class DecrypterSpy implements Decrypter {
+  ciphertext: string
+  plaintext = faker.internet.password()
+  async decrypt (ciphertext: string): Promise<string> {
+    this.ciphertext = ciphertext
+    return this.plaintext
+  }
+}
+
+export class EncrypterSpy implements Encrypter {
+  plaintext: string
+  ciphertext = faker.datatype.uuid()
+  async encrypt (plaintext: string): Promise<string> {
+    this.plaintext = plaintext
+    return this.ciphertext
+  }
+}
+export class HashComparerSpy implements HashComparer {
+  plaintext: string
+  ciphertest: string
+  isValid = true
+
+  async compare (plaintext: string, ciphertest: string): Promise<boolean> {
+    this.plaintext = plaintext
+    this.ciphertest = ciphertest
+    return this.isValid
+  }
 }

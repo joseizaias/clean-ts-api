@@ -1,5 +1,6 @@
 import { SurveyModel } from '@/domain/models/survey'
 import { AddSurveyParams } from '@/domain/usecases/survey/add-survey'
+import { LoadSurveys } from '../usecases/survey/load-surveys'
 
 export const mockSurveyModel = (): SurveyModel => {
   return {
@@ -43,3 +44,13 @@ export const mockAddSurveyParams = (): AddSurveyParams => ({
   }],
   date: new Date()
 })
+
+export class LoadSurveysSpy implements LoadSurveys {
+  surveyModels = mockSurveysModel()
+  accountId: string
+
+  async load (accountId: string): Promise<SurveyModel[]> {
+    this.accountId = accountId
+    return this.surveyModels
+  }
+}
