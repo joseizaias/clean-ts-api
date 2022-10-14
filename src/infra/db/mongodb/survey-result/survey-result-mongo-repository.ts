@@ -1,4 +1,5 @@
 import { ObjectId } from 'mongodb'
+import round from 'mongo-round'
 
 import { SaveSurveyResultParams, SaveSurveyResultRepository, SurveyResultModel } from '@/data/usecases/survey-result/save-survey-result/db-save-survey-result-protocols'
 import { MongoHelper, QueryBuilder } from '@/infra/db/mongodb/helpers'
@@ -167,8 +168,8 @@ export class SurveyResultMongoRepository implements SaveSurveyResultRepository, 
         answer: {
           answer: '$_id.answer',
           image: '$_id.image',
-          count: ('$count'),
-          percent: ('$percent'),
+          count: round('$count'),
+          percent: round('$percent'),
           isCurrentAccountAnswer: {
             $eq: ['$isCurrentAccountAnswerCount', 1]
           }

@@ -1,4 +1,5 @@
 import MockDate from 'mockdate'
+import { faker } from '@faker-js/faker'
 
 import { mockSurveyResultModel, throwError } from '@/domain/test'
 import { InvalidParamError } from '@/presentation/errors'
@@ -9,8 +10,9 @@ import { LoadSurveyResultController } from './load-survey-result-controller'
 import { HttpRequest, LoadSurveyById, LoadSurveyResult } from './load-survey-result-controller-protocols'
 
 const mockRequest = (): HttpRequest => ({
+  accountId: faker.datatype.uuid(),
   params: {
-    surveyId: 'any_id'
+    surveyId: faker.datatype.uuid()
   }
 })
 
@@ -40,17 +42,19 @@ describe('LoadSurveyResult Controller', () => {
   })
 
   test('Should call LoadSurveyById with correct values', async () => {
+    const httpRequest = mockRequest()
     const { sut, loadSurveyByIdStub } = makeSut()
     const loadByIdSpy = jest.spyOn(loadSurveyByIdStub, 'loadById')
-    await sut.handle(mockRequest())
+    await sut.handle(httpRequest)
 
-    expect(loadByIdSpy).toHaveBeenCalledWith('any_id')
+    expect(loadByIdSpy).toHaveBeenCalledWith(httpRequest.params.surveyId)
   })
 
   test('Should return 403 if LoadSurveyById returns null', async () => {
+    const httpRequest = mockRequest()
     const { sut, loadSurveyByIdStub } = makeSut()
     jest.spyOn(loadSurveyByIdStub, 'loadById').mockReturnValueOnce(Promise.resolve(null as unknown as SurveyModel))
-    const httpResponse = await sut.handle(mockRequest())
+    const httpResponse = await sut.handle(httpRequest)
 
     expect(httpResponse).toEqual(forbidden(new InvalidParamError('surveyId')))
   })
@@ -64,11 +68,12 @@ describe('LoadSurveyResult Controller', () => {
   })
 
   test('Should call LoadSurveyResult with correct values', async () => {
+    const httpRequest = mockRequest()
     const { sut, loadSurveyResultStub } = makeSut()
     const loadSpy = jest.spyOn(loadSurveyResultStub, 'load')
-    await sut.handle(mockRequest())
+    await sut.handle(httpRequest)
 
-    expect(loadSpy).toHaveBeenCalledWith('any_id')
+    expect(loadSpy).toHaveBeenCalledWith(httpRequest.params.surveyId, httpRequest.accountId)
   })
 
   test('Should return 500 if LoadSurveyResult throws', async () => {
